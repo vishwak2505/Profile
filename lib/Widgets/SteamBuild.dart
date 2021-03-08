@@ -5,7 +5,7 @@ import 'Button.dart';
 import 'balancecard.dart';
 
 var selectedCard = "";
-var cardamount = "";
+int cardamount = 0;
 
 class StreamBuild extends StatefulWidget {
   @override
@@ -104,7 +104,8 @@ class _StreamBuildState extends State<StreamBuild> {
                                                 SizedBox(width: 10.0),
                                                 _buildInfoCard(
                                                     '${snapshot.data.docs[index]['Name']}',
-                                                    '${snapshot.data.docs[index]['Amount']}/-'),
+                                                    snapshot.data.docs[index]
+                                                        ['Amount']),
                                               ],
                                             ),
                                           );
@@ -125,7 +126,7 @@ class _StreamBuildState extends State<StreamBuild> {
         });
   }
 
-  Widget _buildInfoCard(String cardTitle, String rate) {
+  Widget _buildInfoCard(String cardTitle, int rate) {
     selectCard(cardTitle) {
       setState(() {
         selectedCard = cardTitle;
@@ -173,7 +174,7 @@ class _StreamBuildState extends State<StreamBuild> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(rate,
+                        Text("$rate/-",
                             style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontSize: 25.0,
@@ -191,7 +192,7 @@ class _StreamBuildState extends State<StreamBuild> {
 getdetails() {
   return FirebaseFirestore.instance
       .collection('Users')
-      .where("Mobile", isEqualTo: "+919597096870")
+      .where("Mobile", isEqualTo: "+919840141152")
       .snapshots();
 }
 

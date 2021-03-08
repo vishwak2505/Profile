@@ -12,7 +12,9 @@ class ButtonCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             RaisedButton(
-              onPressed: topup(),
+              onPressed: () async {
+                topup();
+              },
               splashColor: Color(0xFF7A9BEE),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -71,11 +73,12 @@ class ButtonCard extends StatelessWidget {
 topup() async {
   QuerySnapshot plan = await FirebaseFirestore.instance
       .collection("Users")
-      .where("+919597096870")
+      .where("Mobile", isEqualTo: "+919840141152")
       .get();
   var bal = plan.docs[0]["Balance"];
   var id = plan.docs[0].id;
   await FirebaseFirestore.instance
-      .doc("id")
+      .collection("Users")
+      .doc(id)
       .update({"Balance": bal + cardamount});
 }
